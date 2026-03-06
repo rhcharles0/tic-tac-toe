@@ -1,9 +1,80 @@
-# tic-tac-toe
 
-1. 퀴즈 세트 원본 데이터 구조 (JSON)
-외부 파일(data/quiz.json)로 분리하여 관리할 퀴즈 데이터의 구조입니다. 객관식, OX, 주관식이라는 서로 다른 유형을 하나의 일관된 포맷으로 처리할 수 있도록 설계했습니다.
+---
 
-JSON
+```markdown
+# 🎮 짱구 vs 철수: 지식의 틱택토 (Tic-Tac-Toe Quiz Game)
+
+> **To: 27회차(전공)_강태훈, 27회차(전공)_김나현, 27회차(전공)_김혜빈, 27회차(전공)_문수호, 27회차(전공)_최윤호** > 안녕하세요 팀원 여러분! 저희 팀 프로젝트의 전체적인 개발 기획안과 데이터 구조입니다. 본격적인 개발에 앞서 아래 내용을 확인해 주시고, 각자 맡고 싶은 파트나 의견 편하게 남겨주세요!
+
+<br>
+
+## 🛠 1. 개발 환경 및 협업 툴 (Tech Stack & Tools)
+
+- **Language:** HTML5, CSS3, JavaScript (ES6+)
+- **IDE:** VS Code (추천 확장 프로그램: Live Server, Prettier, ESLint)
+- **Version Control:** Git & GitHub
+  - **협업 전략:** `main` 브랜치에 직접 커밋하지 않고, 기능별 브랜치(`feature/ui-board`, `feature/logic-quiz` 등) 생성 후 PR(Pull Request)을 통해 병합
+- **UI/UX Design:** Figma (화면 레이아웃 및 컴포넌트 사전 정의)
+- **Management:** Notion (API 명세, 칸반 보드로 할 일 관리)
+
+<br>
+
+## 📂 2. 프로젝트 디렉토리 구조 (Directory Structure)
+관심사 분리(Separation of Concerns) 원칙을 적용하여 파일을 나눕니다.
+
+```text
+ttt-project/
+├── index.html           # 단일 페이지: 시작, 게임, 모달 화면 통합
+├── css/
+│   ├── reset.css        # 브라우저 기본 스타일 초기화
+│   └── style.css        # 메인 디자인 및 애니메이션
+├── js/
+│   ├── data.js          # JSON 데이터 Fetch 및 퀴즈 출제 로직
+│   ├── game.js          # 틱택토 승패 판별 및 턴 관리 로직
+│   ├── ai.js            # CPU 철수의 착수 알고리즘
+│   └── main.js          # DOM 이벤트 리스너 및 UI 업데이트 제어
+├── data/
+│   └── quiz.json        # 퀴즈 54문제 (객관식, OX, 주관식) 데이터
+└── assets/
+    ├── images/          # 짱구, 철수 얼굴, 배경 이미지
+    └── sounds/          # (선택) 착수음, 정답/오답 효과음
+
+```
+
+## 🖥 3. UI/UX 화면 및 상태 흐름 (Flow)
+
+페이지 이동 없이 CSS의 `display` 속성을 제어하여 화면을 전환하는 **SPA(Single Page Application)** 유사 방식을 적용합니다.
+
+1. **시작 화면 (Intro State)**
+* 배경: 짱구 테마 배경
+* 버튼: `[게임 시작]`, `[규칙 설명]`
+* 이벤트: 규칙 설명 클릭 시 `<dialog>` 팝업 노출. 시작 클릭 시 '게임 화면'으로 교체.
+
+
+2. **게임 화면 (Game State)**
+* 상단: 현재 턴 표시 (짱구 캐릭터 확대/진동 애니메이션 적용)
+* 중앙: 3x3 틱택토 보드
+* 이벤트: 빈칸 클릭 시 해당 칸 인덱스 기억 후 '퀴즈 모달' 호출.
+
+
+3. **퀴즈 모달 (Quiz Modal State)**
+* 화면 중앙에 문제와 선택지(or 입력창) 출력.
+* **정답 시:** 모달 닫힘 ➡️ 기억해둔 칸에 짱구(Player) 착수 ➡️ 승리 체크 ➡️ 철수 턴
+* **오답 시:** 모달 닫힘 ➡️ 빈칸 유지 ➡️ 철수 턴
+
+
+4. **결과 모달 (Result Modal State)**
+* 승/패/무 텍스트 + 표정 이미지 출력. `[다시 하기]` 클릭 시 변수 초기화 후 새 게임.
+
+
+
+## 📊 4. 데이터 구조 및 흐름 (Data Structure & Flow)
+
+### 4.1. 퀴즈 세트 원본 데이터 (JSON)
+
+`data/quiz.json` 형식 (UI 렌더링 시 `type`으로 분기 처리)
+
+```json
 {
   "version": "1.0",
   "totalCount": 54,
@@ -11,76 +82,84 @@ JSON
     {
       "id": 1,
       "subject": "HTML", 
-      "type": "multiple_choice", // 'multiple_choice', 'ox', 'short_answer' 중 택 1
-      "difficulty": "medium",    // 추후 난이도 조절 기능을 위한 필드
+      "type": "multiple_choice",
+      "difficulty": "medium",
       "question": "HTML에서 하이퍼링크를 생성할 때 사용하는 태그는 무엇인가요?",
-      "options": ["<link>", "<a>", "<href>", "<url>"], // 주관식일 경우 빈 배열 [] 처리
+      "options": ["<link>", "<a>", "<href>", "<url>"],
       "answer": "<a>",
-      "keywords": ["a", "anchor"], // 주관식 정답 판별을 위한 핵심 키워드 배열 (객관식/OX는 빈 배열 처리 가능)
-      "explanation": "<a> 태그는 anchor의 약자로, 다른 페이지나 위치로 연결하는 하이퍼링크를 만듭니다."
+      "keywords": ["a", "anchor"],
+      "explanation": "<a> 태그는 anchor의 약자로, 하이퍼링크를 만듭니다."
     }
-    // ... 나머지 53개 퀴즈
   ]
 }
-💡 설계 포인트: UI 단(HTML)에서 이 JSON을 받아 렌더링할 때, if (quiz.type === 'multiple_choice') 와 같이 조건문을 걸어 화면에 버튼 4개를 보여줄지, O/X 버튼 2개를 보여줄지, 입력창(<input>)을 보여줄지 분기 처리하기 매우 좋습니다.
 
-2. 게임 상태 관리 자료구조 (JS State Object)
-전역 변수들을 여기저기 흩어놓기보다는, 게임의 **현재 상태(State)**를 하나의 큰 객체로 묶어서 관리하는 것이 객체지향적이고 유지보수에 유리합니다. main.js 최상단에 아래와 같은 구조를 선언합니다.
+```
 
-JavaScript
+### 4.2. 게임 상태 관리 (JS State Object)
+
+`main.js` 최상단에 선언하여 전역 상태를 통합 관리합니다.
+
+```javascript
 const gameState = {
   // 1. 보드 상태 관리 (0~8 인덱스의 1차원 배열)
-  // null: 빈칸, 'player': 짱구(O), 'cpu': 철수(X)
   board: Array(9).fill(null), 
   
   // 2. 턴 및 진행 상태 관리
-  currentPlayer: 'player', // 현재 턴 ('player' 또는 'cpu')
-  isGameOver: false,       // 게임 종료 여부 플래그
-  selectedCellIndex: null, // 플레이어가 클릭하여 퀴즈가 진행 중인 칸의 인덱스
+  currentPlayer: 'player', 
+  isGameOver: false,       
+  selectedCellIndex: null, 
   
   // 3. 퀴즈 데이터 관리
-  availableQuizzes: [],    // JSON에서 불러와 셔플(Shuffle)한 후 남은 퀴즈 배열
-  currentQuiz: null,       // 현재 모달 창에 띄워진 문제 객체
+  availableQuizzes: [],    
+  currentQuiz: null,       
   
-  // 4. 통계 (선택 사항: 연승 카운트 등 추가 확장용)
-  score: {
-    player: 0,
-    cpu: 0,
-    draws: 0
-  }
+  // 4. 통계 
+  score: { player: 0, cpu: 0, draws: 0 }
 };
-3. 데이터 흐름(Data Flow) 시나리오
-위의 자료구조들이 실제 게임에서 어떻게 상호작용하는지 순서대로 살펴보겠습니다.
 
-초기화 (Initialization):
+```
 
-게임이 로드되면 fetch('data/quiz.json')을 호출하여 54개의 퀴즈를 가져옵니다.
+## 🧠 5. 핵심 알고리즘 및 구현 상세 (Algorithms)
 
-가져온 quizzes 배열을 무작위로 섞은 뒤 gameState.availableQuizzes에 저장합니다.
+### A. 퀴즈 랜덤 출제 알고리즘 (Fisher-Yates Shuffle)
 
-착수 시도 (Player Action):
+```javascript
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
-짱구(플레이어)가 4번 칸(정중앙)을 클릭합니다.
+```
 
-gameState.board[4]가 null인지 확인합니다. (이미 돌이 있으면 무시)
+### B. 틱택토 승패 판별 로직
 
-gameState.selectedCellIndex = 4; 로 클릭한 위치를 기억합니다.
+```javascript
+const WINNING_COMBINATIONS = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // 가로
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // 세로
+  [0, 4, 8], [2, 4, 6]             // 대각선
+];
 
-퀴즈 출제 (Quiz Phase):
+function checkWin(playerType) {
+  return WINNING_COMBINATIONS.some(combination => {
+    return combination.every(index => gameState.board[index] === playerType);
+  });
+}
 
-gameState.availableQuizzes.pop()으로 퀴즈 하나를 꺼내 gameState.currentQuiz에 담습니다.
+```
 
-화면에 모달을 띄우고 currentQuiz의 내용을 렌더링합니다.
+### C. 철수(CPU) AI 알고리즘 (Rule-Based)
 
-정답 판별 및 상태 업데이트 (Resolution):
+1. **우선순위 1 (방어):** 플레이어가 다음 턴에 이길 수 있는 자리 방어
+2. **우선순위 2 (중앙):** 인덱스 4가 비어있다면 선점
+3. **우선순위 3 (랜덤):** 남은 빈칸 중 무작위 착수
 
-정답일 경우: gameState.board[gameState.selectedCellIndex] = 'player'; (보드 배열 업데이트)
--> 화면의 4번 칸에 짱구 얼굴 이미지를 렌더링합니다.
 
-오답일 경우: gameState.board는 그대로 둡니다. (빈칸 유지)
 
-공통 처리: 모달을 닫고, gameState.currentPlayer = 'cpu'; 로 턴을 넘긴 뒤, 철수의 자동 착수 함수를 호출합니다.
+---
 
-이러한 상태 기반(State-driven) 데이터 구조를 바탕으로 개발을 진행하면, 중간에 에러가 나더라도 console.log(gameState) 한 줄만 찍어보면 현재 게임의 모든 상황을 즉각 파악할 수 있어 디버깅이 매우 편해집니다.
+이제 이 텍스트를 복사해서 바로 `README.md` 파일에 붙여넣으시면 됩니다. 첫 주 차 작업인 **HTML/CSS 뼈대 코드(index.html, style.css)** 초기 세팅이 필요하시다면 바로 작성해 드릴게요! 어떻게 할까요?
 
-현재 블루프린트에서 데이터를 fetch로 불러와서 배열을 섞어주는 초기화 자바스크립트 코드부터 작성해 볼까요? 아니면 UI(HTML/CSS) 구조를 먼저 잡아보는 것이 좋을까요? 원하는 시작점을 말씀해 주시면 바로 코드를 제공해 드리겠습니다.
+```
