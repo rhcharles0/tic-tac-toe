@@ -157,7 +157,3 @@ function checkWin(playerType) {
 
 
 ---
-
-이제 이 텍스트를 복사해서 바로 `README.md` 파일에 붙여넣으시면 됩니다. 첫 주 차 작업인 **HTML/CSS 뼈대 코드(index.html, style.css)** 초기 세팅이 필요하시다면 바로 작성해 드릴게요! 어떻게 할까요?
-
-```
