@@ -41,7 +41,7 @@ async function initGame() {
       ];
     }
 
-    // 3. 데이터 로딩이 끝난 후 화면 그리기 (매우 중요!)
+    // 3. 데이터 로딩이 끝난 후 화면 업데이트
     renderBoard();
     updatePlayerIcon();
 
@@ -67,6 +67,7 @@ function updatePlayerIcon() {
   }
 }
 
+//퀴즈 형식 한글 변환
 const typeLabels = {
   multiple_choice: '객관식',
   ox: 'OX퀴즈',
@@ -87,7 +88,6 @@ function openQuizModal(index) {
 
   // 2. 퀴즈 타입 한글 변환 (매핑 적용)
   if (typeEl) {
-    // JSON의 type이 'multiple'이면 '객관식'을, 없으면 원래 값을 보여줌
     const koreanType =
       typeLabels[currentQuiz.type] || currentQuiz.type || '퀴즈';
     typeEl.textContent = koreanType;
