@@ -3,29 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>짱구 vs 철수: 지식의 틱택토</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <script src="script.js" type="module"></script>
-    <table id="board">
-      <tr>
-        <td> <button class="cell" data-index="0"></button> </td>
-        <td> <button class="cell" data-index="1"></button> </td>
-        <td> <button class="cell" data-index="2"></button> </td>
-      </tr>
-      <tr>
-        <td> <button class="cell" data-index="3"></button> </td>
-        <td> <button class="cell" data-index="4"></button> </td>
-        <td> <button class="cell" data-index="5"></button> </td>
-      </tr>
-      <tr>
-        <td> <button class="cell" data-index="6"></button> </td>
-        <td> <button class="cell" data-index="7"></button> </td>
-        <td> <button class="cell" data-index="8"></button> </td>
-      </tr>
-      <img id="playerIcon" src="../files/player0.png">
-
+    <div id="cell-wrapper">
+      <table id="board">
+        <tr>
+          <td><button class="cell" data-index="0"></button></td>
+          <td><button class="cell" data-index="1"></button></td>
+          <td><button class="cell" data-index="2"></button></td>
+        </tr>
+        <tr>
+          <td><button class="cell" data-index="3"></button></td>
+          <td><button class="cell" data-index="4"></button></td>
+          <td><button class="cell" data-index="5"></button></td>
+        </tr>
+        <tr>
+          <td><button class="cell" data-index="6"></button></td>
+          <td><button class="cell" data-index="7"></button></td>
+          <td><button class="cell" data-index="8"></button></td>
+        </tr>
+      </table>
       <button id="resetBtn">Reset</button>
-</body>
+    </div>
+
+    <img id="playerIcon" src="../assets/player0.png" />
+    <img id="cpuIcon" src="../assets/player1.png" />
+
+    <div id="quiz-modal">
+      <div id="modal-content">
+        <div id="quiz-header">
+          <span id="quiz-subject">과목</span>
+          <span id="quiz-type">유형</span>
+        </div>
+        <h2 id="quiz-question">문제가 여기에 표시됩니다.</h2>
+        <div id="quiz-options"></div>
+      </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+  </body>
 </html>
