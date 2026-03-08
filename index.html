@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>짱구의 Tic-Tac-Toe</title>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+header {
+    z-index: 10;
+    margin-top: 50px;
+}
+
+p {
+    font-family: 'Jua', sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    color: #fff;
+    margin: 20px;
+}
+
+p span {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 4rem;
+    color: #111;
+
+    background-color: #ffd500;
+    background-size: cover;
+    background-blend-mode: multiply;
+
+    border: 4px solid #000;
+    border-radius: 15px;
+    text-shadow:
+        4px 4px 0px #e6007e,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+
+    transform: rotate(-2deg);
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+p {
+    text-shadow: 2px 2px 0px #ffd500;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.bg {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bg video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    filter: brightness(0.6);
+}
+.menu {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-button {
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    background-color: #ffd500;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+
+    border: 1px solid rgba(0, 0, 0, 0.4);
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.menu-button:hover {
+    filter: brightness(0.9);
+}
+
+.menu-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.menu-button a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+
+    color: #111;
+}
+
+.menu-button {
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    color: #111;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.rule-board {
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    background-color: #ffd500;
+    background-blend-mode: multiply;
+    background-size: cover;
+    padding: 40px;
+    border: 5px solid #111;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    color: #111;
+    font-family: 'Jua', sans-serif;
+}
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #111;
+}
+
+.rule-board h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+.rule-content ul {
+    list-style: none;
+    line-height: 1.6;
+}
+
+.rule-content li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    padding-left: 10px;
+    border-left: 4px solid #e6007e;
+}
+
+.rule-content strong {
+    color: #e6007e;
+}
+
+.difficulty-board {
+    position: relative;
+    width: 80%;
+    max-width: 480px;
+    background-color: #ffd500;
+    background-blend-mode: multiply;
+    background-size: cover;
+    padding: 36px 32px 28px;
+    border: 5px solid #111;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    color: #111;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+}
+
+#difficulty-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #111;
+}
+
+.difficulty-board h2 {
+    margin-bottom: 12px;
+    font-size: 1.8rem;
+}
+
+.difficulty-subtext {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.difficulty-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.difficulty-button {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #ffe66d;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
+        filter 0.1s ease-out;
+}
+
+.difficulty-button:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+        </style>
+    </head>
+    <body>
+        <div class="bg">
+            <video autoplay muted loop playsinline>
+                <source src="./assets/videos/video.mp4" type="video/mp4" />
+            </video>
+            <header>
+                <p>짱구의 <span>Tic-Tac-Toe</span> 게임</p>
+            </header>
+            <div class="menu">
+                <ul>
+                    <li class="menu-button" id="start">
+                        <a href="./game" id="start-link">시작</a>
+                    </li>
+                    <li class="menu-button">규칙</li>
+                </ul>
+
+                <div id="rule-modal" class="modal-overlay">
+                    <div class="rule-board">
+                        <button id="close-btn">&times;</button>
+                        <h2>🎮 게임 규칙</h2>
+                        <div class="rule-content">
+                            <ul>
+                                <li>
+                                    <strong>준비:</strong> 3x3 격자판을
+                                    준비하고, 두 플레이어는 각각 자신의 표식(O
+                                    또는 X)을 정합니다.
+                                </li>
+                                <li>
+                                    <strong>진행:</strong> 자신의 차례에 빈칸 중
+                                    한 곳을 골라 자신의 표식을 남깁니다. 보통
+                                    X가 먼저 시작합니다.
+                                </li>
+                                <li>
+                                    <strong>승리 조건:</strong> 가로, 세로, 혹은
+                                    대각선 방향으로 3개를 가장 먼저 일직선으로
+                                    잇는 사람이 승리합니다.
+                                </li>
+                                <li>
+                                    <strong>무승부:</strong> 9칸이 모두 찼음에도
+                                    아무도 3개를 잇지 못했다면 무승부로
+                                    끝납니다.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="difficulty-modal" class="modal-overlay">
+                    <div class="difficulty-board">
+                        <button id="difficulty-close-btn" aria-label="난이도 창 닫기">&times;</button>
+                        <h2>난이도를 선택해 주세요</h2>
+                        <p class="difficulty-subtext">
+                           난이도에 따라 CPU의 전략이 달라집니다. (Easy / Normal / Hard)
+                        </p>
+                        <div class="difficulty-buttons">
+                            <button class="difficulty-button" data-level="easy">
+                                쉬움 (Easy)
+                            </button>
+                            <button class="difficulty-button" data-level="normal">
+                                보통 (Normal)
+                            </button>
+                            <button class="difficulty-button" data-level="hard">
+                                어려움 (Hard)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="./js/main.js" type="module"></script>
+        </div>
+    </body>
+</html>
