@@ -29,7 +29,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // 2. 모달 열기/닫기 로직
     ruleBtn.addEventListener('click', () => {
         modal.style.display = 'flex';
-        // (보너스) 모달 나타날 때 스윽~ 효과
         gsap.fromTo(
             '.rule-board',
             { y: -50, opacity: 0 },
@@ -47,7 +46,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. GSAP 호버 애니메이션 (부드럽게 커지기)
     closeBtn.addEventListener('mouseenter', () => {
         gsap.to(closeBtn, {
             scale: 1.5, // 1.5배 크기로
