@@ -1,0 +1,68 @@
+// HTML 요소들이 모두 로드된 후 실행
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. 요소 선택
+    const ruleBtn = document.getElementById('rule-btn');
+    const modal = document.getElementById('rule-modal');
+    const closeBtn = document.getElementById('close-btn');
+    const menuBtns = document.querySelectorAll('.menu > ul > li');
+
+    menuBtns.forEach((btn) => {
+        // 마우스를 올렸을 때
+        btn.addEventListener('mouseenter', () => {
+            gsap.to(btn, {
+                '--bg-height': '100%', // CSS 변수 값을 100%로
+                duration: 0.4,
+                ease: 'power2.out',
+            });
+        });
+
+        // 마우스를 뗐을 때
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                '--bg-height': '0%', // 다시 0%로
+                duration: 0.3,
+                ease: 'power2.in',
+            });
+        });
+    });
+
+    // 2. 모달 열기/닫기 로직
+    ruleBtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        // (보너스) 모달 나타날 때 스윽~ 효과
+        gsap.fromTo(
+            '.rule-board',
+            { y: -50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+        );
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // 3. GSAP 호버 애니메이션 (부드럽게 커지기)
+    closeBtn.addEventListener('mouseenter', () => {
+        gsap.to(closeBtn, {
+            scale: 1.5, // 1.5배 크기로
+            duration: 0.4,
+            ease: 'back.out(1.7)', // 쫀득한 탄성
+            color: '#555', // 색상 변경
+        });
+    });
+
+    closeBtn.addEventListener('mouseleave', () => {
+        gsap.to(closeBtn, {
+            scale: 1, // 원래 크기로
+            duration: 0.3,
+            ease: 'power2.out',
+            color: '#111',
+        });
+    });
+});
