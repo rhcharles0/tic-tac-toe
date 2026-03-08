@@ -54,7 +54,15 @@ async function initGame() {
 // 3. 화면 업데이트 함수들
 function renderBoard() {
   gameState.board.forEach((value, index) => {
-    cells[index].textContent = value;
+    if (value === 'X') {
+      cells[index].innerHTML =
+        '<img src="../assets/player0_mark.png" class="cell-mark">';
+    } else if (value === 'O') {
+      cells[index].innerHTML =
+        '<img src="../assets/player1_mark.png" class="cell-mark">';
+    } else {
+      cells[index].innerHTML = '';
+    }
   });
 }
 
@@ -133,6 +141,61 @@ function openQuizModal(index) {
   quizModal.style.display = 'flex';
 }
 
+// 4. 퀴즈 결과 처리 및 게임 로직
+function handleQuizResult(isCorrect) {
+  const index = gameState.selectedCellIndex;
+  if (isCorrect) {
+    // 정답인 경우: 해당 셀에 현재 플레이어의 마크 표시
+    gameState.board[index] = gameState.currentPlayer;
+    renderBoard();
+    saveToLocalStorage();
+
+    // 승리 체크
+    if (checkWinner()) {
+      gameState.isGameOver = true;
+      closeQuizModal();
+      setTimeout(() => {
+        alert(`${gameState.currentPlayer} 플레이어 승리!`);
+      }, 100);
+      gameState.selectedCellIndex = null;
+      return;
+    }
+
+    // 무승부 체크
+    if (checkDraw()) {
+      gameState.isGameOver = true;
+      closeQuizModal();
+      setTimeout(() => {
+        alert('무승부입니다!');
+      }, 100);
+      gameState.selectedCellIndex = null;
+      return;
+    }
+  } else {
+    alert('틀렸습니다! 다음 기회에 도전하세요.');
+  }
+  // 턴 변경
+  gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+
+  updatePlayerIcon();
+  closeQuizModal();
+}
+
+function checkWinner() {
+  return winPatterns.some((pattern) => {
+    const [a, b, c] = pattern;
+    return (
+      gameState.board[a] !== '' &&
+      gameState.board[a] === gameState.board[b] &&
+      gameState.board[b] === gameState.board[c]
+    );
+  });
+}
+
+function checkDraw() {
+  return gameState.board.every((cell) => cell !== '');
+}
+
 function closeQuizModal() {
   const quizModal = document.getElementById('quiz-modal');
   if (quizModal) {
@@ -147,7 +210,7 @@ function saveToLocalStorage() {
 // 6. 이벤트 리스너 등록
 cells.forEach((cell, index) => {
   cell.addEventListener('click', () => {
-    if (cell.textContent !== '' || gameState.isGameOver) return;
+    if (gameState.board[index] !== '' || gameState.isGameOver) return;
     openQuizModal(index);
   });
 });
