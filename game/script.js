@@ -131,7 +131,9 @@ function openQuizModal(index) {
         const userAnswer = document
           .getElementById('quiz-answer-input')
           .value.trim();
-        handleQuizResult(userAnswer === currentQuiz.answer);
+
+        const isCorrect = checkShortAnswer(userAnswer, currentQuiz);
+        handleQuizResult(isCorrect);
       };
 
       optionsContainer.appendChild(input);
@@ -140,6 +142,30 @@ function openQuizModal(index) {
   }
 
   quizModal.style.display = 'flex';
+}
+function normalizeAnswer(text) {
+  return text.trim().toLowerCase().replace(/\s+/g, '');
+}
+
+function checkShortAnswer(userAnswer, currentQuiz) {
+  const normalizedUserAnswer = normalizeAnswer(userAnswer);
+
+  // answer 비교
+  if (
+    currentQuiz.answer &&
+    normalizedUserAnswer === normalizeAnswer(currentQuiz.answer)
+  ) {
+    return true;
+  }
+
+  // keywords 비교
+  if (Array.isArray(currentQuiz.keywords)) {
+    return currentQuiz.keywords.some(
+      (keyword) => normalizedUserAnswer === normalizeAnswer(keyword),
+    );
+  }
+
+  return false;
 }
 
 // 4. 퀴즈 결과 처리 및 게임 로직
