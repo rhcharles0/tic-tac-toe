@@ -1,3 +1,8 @@
+// 메인 페이지(index.html) 전용 스크립트
+// - 규칙 모달 열기/닫기
+// - 난이도 선택 모달 열기/닫기 및 난이도 저장
+// - 선택된 난이도로 /game 페이지로 진입
+
 const ruleButtons = document.querySelectorAll('.menu-button');
 const ruleBtn = ruleButtons[1];
 const ruleModal = document.getElementById('rule-modal');
@@ -9,52 +14,51 @@ const difficultyCloseBtn = document.getElementById('difficulty-close-btn');
 const difficultyButtons = document.querySelectorAll('.difficulty-button');
 
 if (ruleBtn && ruleModal && ruleCloseBtn) {
-    ruleBtn.addEventListener('click', () => {
-        ruleModal.style.display = 'flex';
-    });
+  ruleBtn.addEventListener('click', () => {
+    ruleModal.style.display = 'flex';
+  });
 
-    ruleCloseBtn.addEventListener('click', () => {
-        ruleModal.style.display = 'none';
-    });
+  ruleCloseBtn.addEventListener('click', () => {
+    ruleModal.style.display = 'none';
+  });
 
-    window.addEventListener('click', (e) => {
-        if (e.target === ruleModal) {
-            ruleModal.style.display = 'none';
-        }
-    });
+  window.addEventListener('click', (e) => {
+    if (e.target === ruleModal) {
+      ruleModal.style.display = 'none';
+    }
+  });
 }
 
 if (startLink && difficultyModal) {
-    startLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        difficultyModal.style.display = 'flex';
-    });
+  startLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    difficultyModal.style.display = 'flex';
+  });
 }
 
 if (difficultyCloseBtn && difficultyModal) {
-    difficultyCloseBtn.addEventListener('click', () => {
-        difficultyModal.style.display = 'none';
-    });
+  difficultyCloseBtn.addEventListener('click', () => {
+    difficultyModal.style.display = 'none';
+  });
 
-    window.addEventListener('click', (e) => {
-        if (e.target === difficultyModal) {
-            difficultyModal.style.display = 'none';
-        }
-    });
+  window.addEventListener('click', (e) => {
+    if (e.target === difficultyModal) {
+      difficultyModal.style.display = 'none';
+    }
+  });
 }
 
 if (difficultyButtons.length > 0) {
-    difficultyButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const level = btn.dataset.level;
-            if (!level) return;
+  difficultyButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const level = btn.dataset.level;
+      if (!level) return;
 
-            try {
-                localStorage.setItem('tttDifficulty', level);
-            } catch (e) {}
+      try {
+        localStorage.setItem('tttDifficulty', level);
+      } catch (e) {}
 
-            window.location.href = `./game?difficulty=${encodeURIComponent(level)}`;
-        });
+      window.location.href = `./game?difficulty=${encodeURIComponent(level)}`;
     });
+  });
 }
-
