@@ -144,10 +144,15 @@ body {
 }
 
 #quiz-answer-input {
+  padding: 12px;
   border-radius: 12px;
-  font-size: 18px;
+  font-size: 1.1rem;
   text-align: center;
-  height: 50px;
+  transition: box-shadow 0.2s ease;
+}
+
+.quiz-answer-input:focus {
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.4); /* 초록색 강조 효과 */
 }
 
 .cell-mark {
