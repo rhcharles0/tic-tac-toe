@@ -1,6 +1,6 @@
 {
-  "quizTitle": "웹 및 자바 개발자 필수 역량 퀴즈 54선",
-  "description": "HTML, CSS, Java의 핵심 개념을 평가하는 혼합형 퀴즈입니다.",
+  "quizTitle": "웹 및 자바스크립트 개발자 필수 역량 퀴즈 54선",
+  "description": "HTML, CSS, JavaScript의 핵심 개념을 평가하는 혼합형 퀴즈입니다.",
   "quizzes": [
     {
       "id": 1,
@@ -31,30 +31,30 @@
     },
     {
       "id": 4,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "자바에서 클래스를 상속받을 때 사용하는 키워드는?",
+      "question": "자바스크립트(ES6)에서 클래스를 상속받을 때 사용하는 키워드는?",
       "options": ["implements", "extends", "inherits", "super"],
       "answer": "extends",
-      "explanation": "클래스 상속에는 extends를 사용하며, 인터페이스 구현에는 implements를 사용합니다."
+      "explanation": "자바스크립트에서도 ES6부터 클래스 문법이 도입되었으며, extends 키워드를 사용하여 상속을 구현합니다."
     },
     {
       "id": 5,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "자바에서 배열(Array)은 한 번 크기가 정해지면 이후에 크기를 변경할 수 없다.",
+      "question": "자바스크립트에서 배열(Array)은 한 번 크기가 정해지면 이후에 크기를 동적으로 변경할 수 없다.",
       "options": ["O", "X"],
-      "answer": "O",
-      "explanation": "자바의 정적 배열은 생성 시 크기가 고정됩니다. 가변 크기가 필요할 때는 ArrayList 등을 사용합니다."
+      "answer": "X",
+      "explanation": "자바스크립트의 배열은 동적으로 크기가 변할 수 있으며, push()나 pop() 등의 메서드로 요소를 자유롭게 추가/삭제할 수 있습니다."
     },
     {
       "id": 6,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "객체 지향 프로그래밍의 특징 중, 관련된 데이터와 메서드를 하나로 묶고 외부에서 직접적인 접근을 제한하는 개념은?",
+      "question": "객체 지향 프로그래밍의 특징 중 하나로, 관련된 데이터와 메서드를 묶고 외부에서 직접적인 접근을 제한하는 개념은?",
       "answer": "캡슐화",
-      "keywords": ["캡슐화", "encapsulation", "정보은닉"],
-      "explanation": "캡슐화는 데이터 보호와 유지보수성 향상을 위해 접근 제어자(private 등)를 활용하여 구현합니다."
+      "keywords": ["캡슐화", "encapsulation", "클로저", "정보은닉"],
+      "explanation": "자바스크립트에서는 클로저(Closure)나 ES2022에 추가된 프라이빗 필드(#)를 통해 캡슐화를 구현할 수 있습니다."
     },
     {
       "id": 7,
@@ -112,30 +112,30 @@
     },
     {
       "id": 13,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "자바의 접근 제어자 중 '같은 패키지' 및 '자식 클래스'에서 접근을 허용하는 것은?",
-      "options": ["public", "protected", "default", "private"],
-      "answer": "protected",
-      "explanation": "protected는 동일 패키지 내부와 다른 패키지의 자손 클래스에서 접근 가능합니다."
+      "question": "자바스크립트에서 블록 스코프(Block Scope)를 가지며, 재선언 및 재할당이 모두 불가능한 변수를 선언하는 키워드는?",
+      "options": ["var", "let", "const", "static"],
+      "answer": "const",
+      "explanation": "const는 상수를 선언할 때 사용하며, 선언 시 반드시 초기화해야 하고 이후 값을 재할당할 수 없습니다."
     },
     {
       "id": 14,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "자바에서 인터페이스(Interface)는 인스턴스 변수(일반 멤버 변수)를 가질 수 있다.",
+      "question": "자바스크립트에서 const로 선언된 객체(Object)나 배열(Array)은 내부 요소를 추가하거나 변경할 수 없다.",
       "options": ["O", "X"],
       "answer": "X",
-      "explanation": "인터페이스의 모든 변수는 public static final(상수)로만 선언됩니다."
+      "explanation": "const는 변수의 재할당을 막을 뿐, 참조하고 있는 객체나 배열의 내부 속성을 추가, 수정, 삭제하는 것은 가능합니다."
     },
     {
       "id": 15,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "자바 애플리케이션이 실행될 때 가장 먼저 호출되는 진입점(Entry point) 메서드의 이름은?",
-      "answer": "main",
-      "keywords": ["main", "메인"],
-      "explanation": "public static void main(String[] args)가 자바 프로그램의 시작점입니다."
+      "question": "브라우저 환경의 자바스크립트에서 전역 변수와 함수를 담고 있는 최상위 전역 객체(Global Object)의 이름은?",
+      "answer": "window",
+      "keywords": ["window", "윈도우"],
+      "explanation": "브라우저 환경에서는 window가 전역 객체이며, 문서 객체 모델(DOM) 및 브라우저 객체 모델(BOM) API를 제공합니다."
     },
     {
       "id": 16,
@@ -198,30 +198,30 @@
     },
     {
       "id": 22,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "예외 처리 구문에서 예외 발생 여부와 상관없이 항상 실행되는 블록은?",
-      "options": ["try", "catch", "finally", "throws"],
-      "answer": "finally",
-      "explanation": "finally 블록은 파일 닫기나 자원 해제 등 무조건 실행되어야 하는 코드를 작성할 때 사용합니다."
+      "question": "자바스크립트 비동기 처리에서 성공(resolve)과 실패(reject) 상태를 가지며, 비동기 작업의 완료 또는 실패를 나타내는 객체는?",
+      "options": ["Promise", "Thread", "Callback", "EventLoop"],
+      "answer": "Promise",
+      "explanation": "Promise는 콜백 지옥(Callback Hell)을 해결하기 위해 도입되었으며, then()과 catch() 메서드로 결과를 처리합니다."
     },
     {
       "id": 23,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "오버로딩(Overloading)은 부모 클래스의 메서드를 자식 클래스에서 재정의하는 것을 의미한다.",
+      "question": "자바스크립트의 일치 연산자(===)는 값뿐만 아니라 데이터 타입(Type)까지 일치하는지 엄격하게 비교한다.",
       "options": ["O", "X"],
-      "answer": "X",
-      "explanation": "부모의 메서드를 재정의하는 것은 오버라이딩(Overriding)입니다. 오버로딩은 이름이 같고 매개변수가 다른 메서드를 여러 개 정의하는 것입니다."
+      "answer": "O",
+      "explanation": "동등 연산자(==)는 비교 전 암묵적 형변환을 수행하지만, 일치 연산자(===)는 형변환 없이 엄격하게 비교하므로 사용을 권장합니다."
     },
     {
       "id": 24,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "클래스 내에서 인스턴스 생성 없이 클래스 이름으로 직접 호출할 수 있는 변수나 메서드를 선언할 때 쓰는 키워드는?",
-      "answer": "static",
-      "keywords": ["static", "정적"],
-      "explanation": "static 키워드가 붙은 멤버는 객체 생성 전에 메모리의 메서드 영역에 로드됩니다."
+      "question": "함수와 그 함수가 선언된 렉시컬 환경(Lexical Environment)의 조합으로, 외부 함수의 변수에 접근할 수 있는 내부 함수를 일컫는 용어는?",
+      "answer": "클로저",
+      "keywords": ["클로저", "closure"],
+      "explanation": "클로저는 함수가 생성될 당시의 환경을 기억하여, 외부 함수가 종료된 후에도 그 환경(변수 등)에 접근할 수 있게 해주는 개념입니다."
     },
     {
       "id": 25,
@@ -279,30 +279,30 @@
     },
     {
       "id": 31,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "자바 컬렉션 프레임워크 중 키(Key)와 값(Value)의 쌍으로 데이터를 저장하는 인터페이스는?",
-      "options": ["List", "Set", "Map", "Queue"],
-      "answer": "Map",
-      "explanation": "Map은 키-값 구조를 가지며, 키는 중복될 수 없으나 값은 중복될 수 있습니다. 대표적으로 HashMap이 있습니다."
+      "question": "자바스크립트에서 중복을 허용하지 않는 유일한 값들의 집합을 저장하기 위해 사용하는 내장 객체는?",
+      "options": ["List", "Set", "Map", "Array"],
+      "answer": "Set",
+      "explanation": "Set 객체는 자료형에 관계없이 유일한 원시 값과 객체 참조를 저장할 수 있어 배열의 중복 요소를 제거할 때 유용합니다."
     },
     {
       "id": 32,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "String은 자바의 8가지 기본 자료형(Primitive type) 중 하나이다.",
+      "question": "자바스크립트에서 typeof null을 실행하면 결과값으로 'null'이 반환된다.",
       "options": ["O", "X"],
       "answer": "X",
-      "explanation": "String은 기본 자료형이 아닌 참조 자료형(Reference type) 객체입니다."
+      "explanation": "typeof null은 'object'를 반환합니다. 이는 자바스크립트 초기 버전의 설계 결함이지만, 기존 코드와의 호환성을 위해 수정되지 않고 있습니다."
     },
     {
       "id": 33,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "현재 실행 중인 객체 자기 자신을 가리키는 자바의 참조 변수 키워드는?",
-      "answer": "this",
-      "keywords": ["this", "디스"],
-      "explanation": "this는 인스턴스 자신을 가리키며, 주로 매개변수와 멤버 변수의 이름이 같을 때 구분하기 위해 사용합니다."
+      "question": "일반 함수 내부의 this는 호출 방식에 따라 동적으로 결정되지만, 화살표 함수(Arrow Function)는 자신만의 this를 생성하지 않고 어떤 스코프의 this를 상속받나요?",
+      "answer": "상위 스코프",
+      "keywords": ["상위 스코프", "렉시컬", "lexical", "상위환경"],
+      "explanation": "화살표 함수는 렉시컬 스코프(Lexical Scope)의 this를 그대로 물려받아 사용하므로 콜백 함수 내부에서 유용합니다."
     },
     {
       "id": 34,
@@ -365,30 +365,30 @@
     },
     {
       "id": 40,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "자바에서 변수의 값을 더 이상 변경할 수 없도록 상수화하는 키워드는?",
-      "options": ["const", "final", "static", "void"],
-      "answer": "final",
-      "explanation": "final을 변수에 붙이면 상수가 되고, 메서드에 붙이면 오버라이딩 불가, 클래스에 붙이면 상속 불가 상태가 됩니다."
+      "question": "비동기 함수 내부에서 Promise가 처리될 때까지 코드 실행을 일시 정지하고 기다리게 하는 키워드는?",
+      "options": ["async", "await", "defer", "yield"],
+      "answer": "await",
+      "explanation": "await 키워드는 반드시 async 함수 내부에서만 사용할 수 있으며, 비동기 코드를 마치 동기 코드처럼 직관적으로 작성할 수 있게 해줍니다."
     },
     {
       "id": 41,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "자바 프로그램은 운영체제(OS)의 종류에 관계없이 동일한 실행 결과를 보장한다.",
+      "question": "자바스크립트는 기본적으로 여러 작업을 동시에 병렬로 처리할 수 있는 멀티 스레드(Multi-thread) 언어이다.",
       "options": ["O", "X"],
-      "answer": "O",
-      "explanation": "JVM(Java Virtual Machine) 위에서 실행되기 때문에 'Write Once, Run Anywhere'가 가능합니다."
+      "answer": "X",
+      "explanation": "자바스크립트는 싱글 스레드(Single-thread) 언어입니다. 비동기 작업은 브라우저의 Web API와 이벤트 루프(Event Loop)를 통해 동시성을 지원합니다."
     },
     {
       "id": 42,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "객체를 생성할 때 메모리를 할당하는 역할을 하며, 클래스 이름과 동일하고 반환 타입이 없는 메서드 형태의 블록은?",
-      "answer": "생성자",
-      "keywords": ["생성자", "constructor"],
-      "explanation": "new 키워드와 함께 호출되어 객체의 초기화를 담당합니다."
+      "question": "자바스크립트에서 객체의 기본 뼈대가 되며, 객체 간에 속성과 메서드를 상속(공유)할 수 있게 해주는 내부 연결 고리를 무엇이라고 하나요?",
+      "answer": "프로토타입",
+      "keywords": ["프로토타입", "prototype"],
+      "explanation": "자바스크립트는 클래스 기반이 아닌 프로토타입(Prototype) 기반의 언어로, 객체의 프로토타입 체인을 통해 상속을 구현합니다."
     },
     {
       "id": 43,
@@ -446,35 +446,35 @@
     },
     {
       "id": 49,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "multiple_choice",
-      "question": "더 이상 사용되지 않는 메모리 객체를 찾아 자동으로 해제해 주는 자바의 메모리 관리 시스템은?",
+      "question": "일정 시간이 지난 후에 특정 함수를 한 번 실행하도록 지연 타이머를 설정하는 자바스크립트 내장 함수는?",
       "options": [
-        "Compiler",
-        "Interpreter",
-        "Garbage Collector",
-        "ClassLoader"
+        "setInterval()",
+        "setTimeout()",
+        "setDelay()",
+        "clearTimeout()"
       ],
-      "answer": "Garbage Collector",
-      "explanation": "가비지 컬렉터(GC)가 백그라운드에서 동작하여 개발자가 직접 메모리를 해제(free)할 필요가 없습니다."
+      "answer": "setTimeout()",
+      "explanation": "setTimeout()은 지정된 밀리초(ms)가 경과한 후 콜백 함수를 실행합니다. 일정한 간격으로 반복 실행할 때는 setInterval()을 사용합니다."
     },
     {
       "id": 50,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "ox",
-      "question": "추상 클래스(Abstract Class)는 new 키워드를 사용하여 직접 객체(인스턴스)를 생성할 수 있다.",
+      "question": "자바스크립트에서 함수는 다른 변수에 할당하거나, 다른 함수의 인자로 전달하고, 반환값으로 사용할 수 있는 일급 객체(First-class object)이다.",
       "options": ["O", "X"],
-      "answer": "X",
-      "explanation": "추상 클래스는 미완성 설계도이므로 직접 인스턴스화할 수 없고, 자식 클래스에서 상속받아 구현해야 합니다."
+      "answer": "O",
+      "explanation": "이러한 일급 객체의 특성 덕분에 자바스크립트에서는 콜백 함수나 고차 함수(Higher-order function) 패턴을 매우 유연하게 활용할 수 있습니다."
     },
     {
       "id": 51,
-      "subject": "Java",
+      "subject": "JavaScript",
       "type": "short_answer",
-      "question": "여러 스레드가 동시에 같은 자원에 접근하려 할 때 데이터의 무결성을 보장하기 위해 한 번에 하나의 스레드만 접근하도록 막는 키워드는?",
-      "answer": "synchronized",
-      "keywords": ["synchronized", "동기화"],
-      "explanation": "멀티스레드 환경에서 Thread-safe를 보장하기 위해 사용합니다."
+      "question": "비동기 네트워크 요청을 보내고 서버와 데이터를 통신하기 위해 최신 자바스크립트에서 권장하는 프로미스(Promise) 기반의 내장 API는?",
+      "answer": "fetch",
+      "keywords": ["fetch", "fetch API", "패치", "페치"],
+      "explanation": "fetch API는 기존의 XMLHttpRequest(XHR)를 대체하며, 훨씬 간단하고 직관적인 비동기 HTTP 요청을 가능하게 합니다."
     },
     {
       "id": 52,
