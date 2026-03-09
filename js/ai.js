@@ -1,31 +1,79 @@
-/*
- * ai.js - CPU(철수) 착수 알고리즘
+/**
+ * 난이도 'hard'에서 사용할 틱택토 AI 로직
  *
- * 구현할 파트:
+ * 보드 표현
+ *  - 'X' : 플레이어 말
+ *  - 'O' : AI 말
+ *  - ''  : 비어 있는 칸
  *
- * 1. 난이도 읽기
- *    - URL 쿼리 ?difficulty=easy|normal|hard 또는 localStorage.getItem('tttDifficulty')
- *    - 난이도별로 다른 전략 함수 호출
- *
- * 2. getCPUMove(board) → number (0~8 인덱스)
- *    - board: 현재 보드 배열 (null | 'player' | 'cpu')
- *    - 빈 칸 인덱스 중 하나 반환
- *
- * 3. Easy: 랜덤 착수
- *    - 빈 칸 인덱스 배열을 만든 뒤 Math.random()으로 하나 선택
- *
- * 4. Normal: 방어만
- *    - 우선순위1: 플레이어가 다음 수에 이길 수 있는 자리(두 개 연속 + 빈 칸)가 있으면 그 빈 칸 방어
- *    - 없으면: 중앙(4) 비어 있으면 4
- *    - 없으면: 빈 칸 중 랜덤
- *
- * 5. Hard: 최선의 수
- *    - 우선순위1: CPU가 한 수에 이길 수 있는 자리 있으면 그 칸 선택
- *    - 우선순위2: 플레이어가 이길 자리 방어
- *    - 우선순위3: 중앙(4) 선점
- *    - 우선순위4: 빈 칸 중 랜덤
- *
- * 6. 보조 함수
- *    - 빈 칸 목록 반환: board.map((v,i)=>v===null?i:null).filter(i=>i!=null)
- *    - 특정 플레이어가 한 수만 두면 이기는 칸 찾기: WINNING_COMBINATIONS 순회하며 두 칸 채워진 줄의 빈 칸 반환
+ * 전략
+ *  1. AI가 바로 이길 수 있는 수가 있으면 그 칸 선택
+ *  2. 플레이어가 바로 이길 수 있는 수가 있으면 그 칸을 막기
+ *  3. 중앙(4번 칸)이 비어 있으면 우선 차지
+ *  4. 모서리(0, 2, 6, 8) 중 비어 있는 칸 선호
+ *  5. 그래도 없으면 남은 칸 중 랜덤
  */
+
+// 승리 패턴 (가로 3, 세로 3, 대각 2)
+const winPatterns = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+function findWinningMove(board, player) {
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    const values = [board[a], board[b], board[c]];
+
+    const playerCount = values.filter((v) => v === player).length;
+    const emptyIndex = pattern.find((i) => board[i] === '');
+
+    if (playerCount === 2 && emptyIndex !== undefined) {
+      return emptyIndex;
+    }
+  }
+  return null;
+}
+
+/**
+ * 현재 보드 상태에서 AI가 둘 위치(0~8)를 결정합니다.
+ * @param {Array<'X'|'O'|''>} board 현재 게임판 상태
+ * @returns {number|null} 선택된 인덱스 또는 null
+ */
+export function getAiMove(board) {
+  const ai = 'O';
+  const human = 'X';
+
+  const availableIndices = board
+    .map((cell, idx) => (cell === '' ? idx : null))
+    .filter((idx) => idx !== null);
+
+  if (availableIndices.length === 0) return null;
+
+  // 1. AI가 바로 이길 수 있는 수
+  let move = findWinningMove(board, ai);
+  if (move !== null) return move;
+
+  // 2. 플레이어가 바로 이길 수 있는 수를 막기
+  move = findWinningMove(board, human);
+  if (move !== null) return move;
+
+  // 3. 중앙 선호
+  if (board[4] === '') return 4;
+
+  // 4. 모서리 선호
+  const corners = [0, 2, 6, 8].filter((i) => board[i] === '');
+  if (corners.length > 0) {
+    return corners[Math.floor(Math.random() * corners.length)];
+  }
+
+  // 5. 나머지 칸 중 랜덤
+  const randomIndex = Math.floor(Math.random() * availableIndices.length);
+  return availableIndices[randomIndex];
+}
