@@ -6,7 +6,7 @@
 
 import { winPatterns } from './game.js';
 
-export function getAiMove(board) {
+export function getEasyMove(board) {
   const ai = 'O';
   const human = 'X';
   const availableIndices = board

@@ -21,7 +21,7 @@ function findWinningMove(board, player) {
   return null;
 }
 
-export function getAiMove(board) {
+export function getHardMove(board) {
   const ai = 'O';
   const human = 'X';
 

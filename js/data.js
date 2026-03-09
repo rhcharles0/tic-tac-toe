@@ -52,6 +52,7 @@ function renderShortAnswerInput(quiz, callback) {
   input.className = 'quiz-answer-input';
   input.autocomplete = 'off';
   input.placeholder = '정답 입력';
+
   const submitBtn = document.createElement('button');
   submitBtn.className = 'quiz-option-btn';
   submitBtn.textContent = '확인';
@@ -66,7 +67,7 @@ function renderShortAnswerInput(quiz, callback) {
 
 // 3. 정답 확인 로직
 function normalizeAnswer(text) {
-  return text.trim().toLowerCase().replace(/\s+/g, '');
+  return String(text ?? '').trim().toLowerCase().replace(/\s+/g, '');
 }
 
 function checkShortAnswer(userAnswer, quiz) {
