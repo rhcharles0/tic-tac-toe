@@ -230,17 +230,8 @@ function endGame(result) {
   if (isGameOver) return;
   isGameOver = true;
 
-  let message = '';
-  if (result === PLAYER) {
-    message = '짱구 승리!';
-  } else if (result === CPU) {
-    message = '철수 승리!';
-  } else {
-    message = '무승부입니다!';
-  }
-
   setTimeout(() => {
-    alert(message);
+    openGameEnding(result);
   }, 10);
 }
 
@@ -368,3 +359,68 @@ setTurn(PLAYER);
 
 // 초기 퀴즈 로딩
 loadQuizzes();
+
+// 종료 모달 변수추가
+const endModal = document.getElementById('game-end-modal');
+const restartBtn = document.getElementById('restartBtn');
+const endModalTitle = document.getElementById('end-modal-title');
+const endModalContent = document.getElementById('end-modal-content');
+
+// 다시 하기
+restartBtn.addEventListener('click', () => {
+  // 1. 게임 상태 초기화
+  board = Array(BOARD_SIZE).fill(null);
+  isGameOver = false;
+  selectedCellIndex = null;
+  currentQuiz = null;
+
+  // 2. 보드 UI 초기화
+  cells.forEach((cell, index) => {
+    const number = document.createElement('span');
+    number.classList.add('cell-number');
+    number.textContent = index + 1;
+
+    cell.innerHTML = '';
+    cell.appendChild(number);
+  });
+
+  // 3. 턴 초기화
+  setTurn(PLAYER);
+
+  // 모달 리셋
+  endModalContent.innerHTML = '';
+  endModal.classList.remove('is-open');
+});
+
+
+// 게임 결과창
+function openGameEnding(result) {
+  if (result === 'draw') {
+    // 무승부일 경우
+    endModalContent.className += 'move draw';
+    endModalContent.innerHTML = ` <img src="../assets/images/player_character.png" class="img-size move" >
+                                  <img src="../assets/images/cpu_character.png" class="img-size move">`;
+  } else {
+    // 승리자에 따른 이미지 표시
+    let srcUrl = '';
+    let text = '';
+
+    if (result === 'cpu') {
+      srcUrl = '../assets/images/cpu_character.png';
+      text = `후훗, <br>예상한 결과야.`;
+    } else if (result === 'player') {
+      srcUrl = '../assets/images/player_character.png';
+      text = `히히~ 어때? <br>역시 짱구지!`;
+    }
+
+    // 백그라운드 말풍선 이미지 변경
+    endModalContent.className += ' win';
+    endModalContent.innerHTML = `<img class="move img-size" src="` + srcUrl + `"> 
+                                 <div><div id="result-text-div">
+                                    <p id="result-text">` + text + `</p>
+                                 </div></div>`;
+  }
+
+  endModalTitle.innerText = result;
+  endModal.classList.add('is-open');
+}
