@@ -67,23 +67,49 @@ p {
     align-items: center; /* 세로 중앙 */
 }
 
+.row {
+    display: flex;
+    flex: 1; /* 가로 줄 높이를 동일하게 */
+    width: 100%;
+}
+
+.col {
+    flex: 1;
+    height: 100%;
+    background-color: #ffd500;
+    opacity: 0; /* 처음에는 안 보이게 설정 */
+    transform: scale(0); /* 처음에는 크기 0 */
+}
+.ani {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    pointer-events: none;
+}
 /* 비디오 풀스크린 설정 */
-.bg video {
+video {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 100%;
     height: 100%;
     object-fit: cover; /* 비율 유지하며 꽉 채움 */
+    z-index: 1;
     transform: translate(-50%, -50%);
-    z-index: -1;
+
     /* 영상이 너무 밝으면 글자가 안 보이므로 어둡게 처리 */
     filter: brightness(0.6);
 }
 .menu {
     flex-grow: 1; /* 남은 세로 공간을 모두 채움 */
     display: flex; /* 내부 요소 정렬을 위해 flex 사용 */
-
+    position: relative;
+    /* z-index: 5; */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
     z-index: 10;
@@ -91,7 +117,7 @@ p {
 }
 
 /* 메뉴 스타일 */
-.menu ul {
+.menu > ul {
     list-style: none;
     display: flex;
     background-color: #ffd500;
@@ -102,6 +128,7 @@ p {
     align-items: center;
     flex-direction: column;
     gap: 20px;
+    box-shadow: 5px 5px 30px #000;
 }
 
 .menu > ul > li {
@@ -118,6 +145,9 @@ p {
     border-radius: 8px;
     /* 1. 아래에서 위로 채워질 배경 높이 변수 (기본값 0%) */
     --bg-height: 0%;
+
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 .menu > ul > li::before {
@@ -128,7 +158,7 @@ p {
     width: 100%;
     /* 2. 자바스크립트에서 조절할 변수를 적용 */
     height: var(--bg-height);
-    background-color: #111;
+    background-color: #eab300;
     z-index: -1;
     /* transition은 GSAP이 대신할 거라 필요 없습니다. */
 }

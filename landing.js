@@ -6,6 +6,30 @@ window.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-btn');
     const menuBtns = document.querySelectorAll('.menu > ul > li');
 
+    const startBtn = document.querySelector('#start a');
+
+    startBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 즉시 이동 방지
+        const targetUrl = startBtn.getAttribute('href');
+
+        // GSAP 애니메이션 시작
+        gsap.to('.col', {
+            duration: 0.6,
+            opacity: 1,
+            scale: 1.1,
+            stagger: {
+                grid: [16, 16],
+                from: 'random', // 랜덤하게 픽셀이 채워짐
+                amount: 0.8, // 전체 애니메이션 시간
+            },
+            ease: 'power2.inOut',
+            onComplete: () => {
+                // 애니메이션이 끝나면 페이지 이동
+                window.location.href = targetUrl;
+            },
+        });
+    });
+
     menuBtns.forEach((btn) => {
         // 마우스를 올렸을 때
         btn.addEventListener('mouseenter', () => {
