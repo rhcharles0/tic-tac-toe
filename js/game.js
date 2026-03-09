@@ -86,6 +86,8 @@ export function nextTurn(isCorrect, index) {
       gameState.isGameOver = true;
       return;
     }
+  } else {
+    alert('오답입니다!');
   }
 
   // 턴 교체

@@ -49,9 +49,9 @@ export function openQuizModal(index, callback) {
 function renderShortAnswerInput(quiz, callback) {
   const container = document.getElementById('quiz-options');
   const input = document.createElement('input');
-  input.id = 'quiz-answer-input';
+  input.className = 'quiz-answer-input';
+  input.autocomplete = 'off';
   input.placeholder = '정답 입력';
-
   const submitBtn = document.createElement('button');
   submitBtn.className = 'quiz-option-btn';
   submitBtn.textContent = '확인';
