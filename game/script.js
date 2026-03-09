@@ -18,6 +18,14 @@ const quizContent = document.getElementById('quizContent');
 
 let selectedCellIndex = null;
 
+// 사운드 추가...
+let audioUnlocked = false;
+
+const correctSound = document.getElementById("correctSound");
+const wrongSound = document.getElementById("wrongSound");
+const endingSound = document.getElementById("endingSound");
+
+
 // ----- 퀴즈 데이터 -----
 const QUIZ_DATA_URL = '../data/quiz.json';
 let quizzes = [];
@@ -120,7 +128,11 @@ function handleAnswer(userAnswer) {
 
   if (correct) {
     handlePlayerMove(cellIndex);
+    // 사운드 추가
+    correctSound.play();
   } else {
+    // 사운드 추가
+    wrongSound.play();
     alert('오답입니다! 다시 도전해 보세요.');
   }
 }
@@ -312,6 +324,14 @@ cells.forEach((cell) => {
     if (isGameOver) return;
     if (board[index] !== null) return;
     if (currentTurn !== PLAYER) return;
+
+    // 오디오 잠금 해제..
+    if (!audioUnlocked) {
+      const audio = new Audio();
+      audio.play().catch(()=>{});
+      audioUnlocked = true;
+    }
+
     openQuizModal(index);
   });
 });
@@ -390,11 +410,18 @@ restartBtn.addEventListener('click', () => {
   // 모달 리셋
   endModalContent.innerHTML = '';
   endModal.classList.remove('is-open');
+
+  // 사운드 리셋
+  endingSound.pause();
+  endingSound.currentTime = 0;
 });
 
 
 // 게임 결과창
 function openGameEnding(result) {
+  // 사운드 시작
+  endingSound.play();
+
   if (result === 'draw') {
     // 무승부일 경우
     endModalContent.className += 'move draw';
