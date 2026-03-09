@@ -26,7 +26,7 @@ const resetBtn = document.getElementById('resetBtn');
 // 2. 초기 데이터 로드 및 환경 설정
 async function initGame() {
   try {
-    const response = await fetch('../quiz/quizset.json');
+    const response = await fetch('../data/quizset.json');
     const data = await response.json();
 
     // 1. 데이터 할당
@@ -56,10 +56,10 @@ function renderBoard() {
   gameState.board.forEach((value, index) => {
     if (value === 'X') {
       cells[index].innerHTML =
-        '<img src="../assets/player0_mark.png" class="cell-mark">';
+        '<img src="../assets/images/player0_mark.png" class="cell-mark">';
     } else if (value === 'O') {
       cells[index].innerHTML =
-        '<img src="../assets/player1_mark.png" class="cell-mark">';
+        '<img src="../assets/images/player1_mark.png" class="cell-mark">';
     } else {
       cells[index].innerHTML = '';
     }
@@ -70,8 +70,8 @@ function updatePlayerIcon() {
   if (playerIcon) {
     playerIcon.src =
       gameState.currentPlayer === 'X'
-        ? '../assets/player0.png'
-        : '../assets/player1.png';
+        ? '../assets/images/player0.png'
+        : '../assets/images/player1.png';
   }
 }
 
@@ -126,6 +126,7 @@ function openQuizModal(index) {
 
       const submitBtn = document.createElement('button');
       submitBtn.textContent = '확인';
+      submitBtn.className = 'quiz-option-btn';
       submitBtn.onclick = () => {
         const userAnswer = document
           .getElementById('quiz-answer-input')
