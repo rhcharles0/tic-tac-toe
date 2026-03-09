@@ -143,7 +143,7 @@ body {
   border-color: #000;
 }
 
-#quiz-answer-input {
+.quiz-answer-input {
   padding: 12px;
   border-radius: 12px;
   font-size: 1.1rem;
@@ -152,7 +152,7 @@ body {
 }
 
 .quiz-answer-input:focus {
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.4); /* 초록색 강조 효과 */
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.4);
 }
 
 .cell-mark {
