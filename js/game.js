@@ -118,23 +118,23 @@ export function nextTurn(isCorrect, index) {
 
 function triggerAiTurn() {
   if (gameState.isGameOver) return;
-  const aiIndex =
-    difficulty === 'hard'
-      ? getHardMove(gameState.board)
-      : getEasyMove(gameState.board);
-  if (aiIndex !== null) nextTurn(true, aiIndex);
-  if (difficulty === 'normal') {
-    const aiBoard = board.map((cell) => {
-      if (cell === PLAYER) return 'X';
-      if (cell === CPU) return 'O';
+
+  let aiIndex = null;
+
+  if (difficulty === 'hard') {
+    aiIndex = getHardMove(gameState.board);
+  } else if (difficulty === 'normal') {
+    const aiBoard = gameState.board.map((cell) => {
+      if (cell === 'X') return 'X';
+      if (cell === 'O') return 'O';
       return '';
     });
 
-    const aiMove = getAiMoveNormal(aiBoard);
-    if (aiMove !== null && board[aiMove] === null) {
-      cpuIndex = aiMove;
-    }
+    aiIndex = getNormalMove(aiBoard);
+  } else {
+    aiIndex = getEasyMove(gameState.board);
   }
+  if (aiIndex !== null) nextTurn(true, aiIndex);
 }
 
 function endGame(result) {
