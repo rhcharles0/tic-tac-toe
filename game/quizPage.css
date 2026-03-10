@@ -302,13 +302,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-#result-explanation,
-#result-question {
-  font-size: 15px;
-  line-height: 1.5;
-  font-weight: bold;
-  margin: 25px;
-}
 
 /* 3. 결과 타이틀 (짱구 승리! 등) */
 .ending-font {
@@ -493,13 +486,16 @@ body {
 }
 
 .modal .modal-content {
-  background: #ffd500;
-  padding: 30px;
-  border: 4px solid #111;
-  border-radius: 15px;
+  background: #fff8cf;
+  padding: 35px 30px;
+  border: 5px solid #111;
+  border-radius: 20px;
   width: 90%;
-  max-width: 500px;
+  max-width: 520px;
   text-align: center;
+
+  box-shadow: 0 12px 0 #111;
+  position: relative;
 }
 
 #result-header {
@@ -509,8 +505,19 @@ body {
 }
 
 #result-question {
-  margin-bottom: 10px;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+#result-explanation {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  border: 2px dashed #111;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 #result-options {
@@ -538,11 +545,13 @@ body {
 .result-option-btn.correct {
   background: #4caf50;
   color: white;
+  transform: scale(1.03);
 }
 
 .result-option-btn.incorrect {
   background: #f44336;
   color: white;
+  opacity: 0.8;
 }
 
 #result-answer-input {
@@ -557,20 +566,24 @@ body {
 }
 
 #close-result-modal {
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #000;
-  background-color: #ffd500;
-  border: 2px solid #000;
-  border-radius: 5px;
+  margin-top: 10px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 900;
+  background: #fdc135;
+  border: 3px solid #111;
+  border-radius: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 0 #000;
 }
 
 #close-result-modal:hover {
-  background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
-  border-color: #000;
+}
+
+#close-result-modal:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #000;
 }
 
 .modal-overlay {
