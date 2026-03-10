@@ -1,5 +1,6 @@
 import { fetchQuizzes, openQuizModal } from './data.js';
 import { getEasyMove } from './ai_easy.js';
+import { getNormalMove } from './ai_normal.js';
 import { getHardMove } from './ai_hard.js';
 
 // 1. 상수 및 DOM 요소 캐싱
@@ -155,7 +156,19 @@ function openGameEnding(result) {
       <div id="result-text-div"><p id="result-text">${text}</p></div>`;
     endModalTitle.innerText = isPlayer ? '짱구 승리!' : '철수 승리!';
   }
-  endModal?.classList.add('is-open');
+
+  if (difficulty === 'normal') {
+    const aiBoard = board.map((cell) => {
+      if (cell === PLAYER) return 'X';
+      if (cell === CPU) return 'O';
+      return '';
+    });
+
+    const aiMove = getAiMoveNormal(aiBoard);
+    if (aiMove !== null && board[aiMove] === null) {
+      cpuIndex = aiMove;
+    }
+  }
 }
 
 // 5. 이벤트 리스너
