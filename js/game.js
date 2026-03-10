@@ -1,6 +1,7 @@
 import { fetchQuizzes, openQuizModal } from './data.js';
-import { getEasyMove } from './ai_easy.js'; 
-import { getHardMove } from './ai_hard.js'; 
+import { getEasyMove } from './ai_easy.js';
+import { getNormalMove } from './ai_normal.js';
+import { getHardMove } from './ai_hard.js';
 
 export const winPatterns = [
   [0, 1, 2],
@@ -149,6 +150,19 @@ function triggerAiTurn() {
   if (aiIndex !== null && aiIndex !== undefined) {
     // AI는 별도의 퀴즈 없이 바로 착수 처리
     nextTurn(true, aiIndex);
+  }
+
+  if (difficulty === 'normal') {
+    const aiBoard = board.map((cell) => {
+      if (cell === PLAYER) return 'X';
+      if (cell === CPU) return 'O';
+      return '';
+    });
+
+    const aiMove = getAiMoveNormal(aiBoard);
+    if (aiMove !== null && board[aiMove] === null) {
+      cpuIndex = aiMove;
+    }
   }
 }
 

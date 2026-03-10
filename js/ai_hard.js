@@ -6,7 +6,7 @@
 
 import { winPatterns } from './game.js';
 
-function findWinningMove(board, player) {
+export function findWinningMove(board, player) {
   for (const pattern of winPatterns) {
     const [a, b, c] = pattern;
     const values = [board[a], board[b], board[c]];
