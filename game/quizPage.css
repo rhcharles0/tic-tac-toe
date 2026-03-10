@@ -78,18 +78,19 @@ body {
   bottom: 15%;
   transform: none;
   transform-origin: bottom center;
-  width: 220px;
-  height: 260px;
+  width: 18vw;
+  max-width: 220px;
+  min-width: 120px;
   object-fit: contain;
   z-index: 1;
 }
 
 .character-left {
-  left: 25%;
+  left: 10%;
 }
 
 .character-right {
-  right: 25%;
+  right: 10%;
 }
 
 .character.is-active {
@@ -139,8 +140,8 @@ body {
 }
 
 .cell {
-  width: 200px;
-  height: 200px;
+  width: clamp(80px, 15vw, 150px);
+  height: clamp(80px, 15vw, 150px);
   border-radius: 12px;
   border: 4px solid #ffffff;
   background: rgba(255, 255, 255, 0.25);
@@ -261,6 +262,197 @@ body {
   border-radius: 5px;
   cursor: pointer;
   width: 100px;
+}
+
+/* 게임 종료 스타일*/
+@font-face {
+  font-family: 'OkMallang';
+  src: url('../assets/font/Ok_Mallang_B.ttf') format('truetype');
+}
+
+#game-end-modal {
+  display: none; /* 초기 상태 숨김 */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* 모달이 열렸을 때 클래스 */
+#game-end-modal.is-open {
+  display: flex;
+}
+
+/* 2. 모달 컨텐츠 박스 */
+#game-end-modal-content {
+  background: #fff8cf;
+  width: 100%;
+  max-width: 550px;
+  border: 5px solid #111;
+  border-radius: 25px;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 3. 결과 타이틀 (짱구 승리! 등) */
+.ending-font {
+  font-family: 'OkMallang', sans-serif;
+  font-size: clamp(60px, 10vw, 100px); /* 화면 크기에 맞게 조절 */
+  color: #fdc135;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: 4px 4px 0 #000;
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+/* 4. 결과 아이템 배치 (승리/무승부 공통) */
+#end-modal-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15px;
+  margin-bottom: 30px;
+  min-height: 220px;
+  position: relative;
+}
+
+/* 결과 이미지 크기 */
+.img-size {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.1));
+}
+
+/* 5. 승리 시 말풍선 레이아웃 */
+.win {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+}
+
+#result-text-div {
+  background-image: url('../assets/images/Speech_bubble.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 220px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -50px; /* 이미지 위로 띄움 */
+  right: -80px; /* 이미지 옆으로 배치 */
+  padding: 20px;
+}
+
+#result-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.4;
+  text-align: center;
+  margin-top: -10px; /* 말풍선 꼬리 위치 고려 */
+}
+
+/* 6. 무승부 레이아웃 */
+.draw {
+  display: flex;
+  gap: 30px;
+}
+
+/* 7. 다시하기 버튼 */
+#restartBtn {
+  background: #fdc135;
+  border: 3px solid #111;
+  border-radius: 12px;
+  padding: 12px 40px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #000;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    background 0.2s;
+  box-shadow: 0 5px 0 #000;
+}
+
+#restartBtn:hover {
+  background: #ffda47;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #000;
+}
+
+#restartBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #000;
+}
+
+/* 반응형 모바일 처리 */
+@media (max-width: 600px) {
+  #game-end-modal-content {
+    padding: 30px 15px;
+  }
+  .img-size {
+    width: 120px;
+  }
+  #result-text-div {
+    width: 180px;
+    height: 130px;
+    right: -40px;
+    top: -40px;
+  }
+  #result-text {
+    font-size: 0.9rem;
+  }
+} 
+/* 커졌다 작아졌다 */
+.pulse {
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.25);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 좌우로 움직이기 */
+.move {
+  /*width: 200px;*/
+  animation: moveSide 1s infinite ease-in-out;
+}
+
+@keyframes moveSide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* 반응형 설정 */

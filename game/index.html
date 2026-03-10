@@ -30,31 +30,31 @@
         <div class="board-wrapper">
           <div id="board" class="board-grid">
             <button class="cell" data-index="0">
-              <span class="cell-number">1</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="1">
-              <span class="cell-number">2</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="2">
-              <span class="cell-number">3</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="3">
-              <span class="cell-number">4</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="4">
-              <span class="cell-number">5</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="5">
-              <span class="cell-number">6</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="6">
-              <span class="cell-number">7</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="7">
-              <span class="cell-number">8</span>
+              <span class="cell-number"></span>
             </button>
             <button class="cell" data-index="8">
-              <span class="cell-number">9</span>
+              <span class="cell-number"></span>
             </button>
           </div>
         </div>
@@ -82,6 +82,33 @@
         <div id="quiz-options"></div>
       </div>
     </div>
+
+    <div id="game-end-modal">
+      <div id="game-end-modal-content">
+        <h1 id="end-modal-title" class="ending-font pulse"></h1>
+        <div id="end-modal-content"></div>
+        <button id="restartBtn">다시하기</button>
+      </div>
+    </div>
+
+    <audio
+      id="correctSound"
+      style="display: none"
+      src="../assets/videos/correct-sound-effect2.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="wrongSound"
+      style="display: none"
+      src="../assets/videos/fail-sound-effect.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="endingSound"
+      style="display: none"
+      src="../assets/videos/ending-sound.mp3"
+      preload="auto"
+    ></audio>
 
     <script src="../js/game.js" type="module"></script>
   </body>
