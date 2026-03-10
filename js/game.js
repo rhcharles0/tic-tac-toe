@@ -123,6 +123,18 @@ function triggerAiTurn() {
       ? getHardMove(gameState.board)
       : getEasyMove(gameState.board);
   if (aiIndex !== null) nextTurn(true, aiIndex);
+  if (difficulty === 'normal') {
+    const aiBoard = board.map((cell) => {
+      if (cell === PLAYER) return 'X';
+      if (cell === CPU) return 'O';
+      return '';
+    });
+
+    const aiMove = getAiMoveNormal(aiBoard);
+    if (aiMove !== null && board[aiMove] === null) {
+      cpuIndex = aiMove;
+    }
+  }
 }
 
 function endGame(result) {
@@ -135,6 +147,9 @@ function openGameEnding(result) {
   endingSound?.play();
   endModalContent.innerHTML = ''; // 초기화
 
+  if (endModal) {
+    endModal.classList.add('is-open');
+  }
   if (result === 'draw') {
     endModalContent.className = 'draw';
     endModalContent.innerHTML = `
@@ -156,19 +171,6 @@ function openGameEnding(result) {
       <div id="result-text-div"><p id="result-text">${text}</p></div>`;
     endModalTitle.innerText = isPlayer ? '짱구 승리!' : '철수 승리!';
   }
-
-  if (difficulty === 'normal') {
-    const aiBoard = board.map((cell) => {
-      if (cell === PLAYER) return 'X';
-      if (cell === CPU) return 'O';
-      return '';
-    });
-
-    const aiMove = getAiMoveNormal(aiBoard);
-    if (aiMove !== null && board[aiMove] === null) {
-      cpuIndex = aiMove;
-    }
-  }
 }
 
 // 5. 이벤트 리스너
@@ -186,7 +188,7 @@ cells.forEach((cell, index) => {
 
 restartBtn?.addEventListener('click', () => {
   localStorage.removeItem('board');
-  window.location.reload(); // 상태가 복잡할 땐 새로고침이 가장 깔끔합니다. [cite: 2026-03-09]
+  window.location.reload();
 });
 
 document.getElementById('resetBtn')?.addEventListener('click', () => {
