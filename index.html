@@ -4,7 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="landing.css" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+            defer
+        ></script>
+        <script src="./js/landing.js" defer></script>
     </head>
     <body>
         <div class="bg">
@@ -303,21 +308,11 @@
             </video>
             <header>
                 <p>짱구의 <span>Tic-Tac-Toe</span> 게임</p>
-                <head>
-                    <script
-                        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-                        defer
-                    ></script>
-                    <script src="./landing.js" defer></script>
-                </head>
             </header>
             <div class="menu">
                 <ul>
-                    <li id="start">
-                        <a href="./game">시작</a>
-                    </li>
+                    <li id="start">시작</li>
                     <!-- tic-tak-toe 규칙 설명 -->
-                    <!-- cache형식으로 하여 상태 변환 -->
                     <li id="rule-btn">규칙</li>
                 </ul>
 
@@ -348,6 +343,36 @@
                                     끝납니다.
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="difficulty-modal" class="modal-overlay">
+                    <div class="difficulty-board">
+                        <button
+                            id="difficulty-close-btn"
+                            aria-label="난이도 창 닫기"
+                        >
+                            &times;
+                        </button>
+                        <h2>난이도를 선택해 주세요</h2>
+                        <p class="difficulty-subtext">
+                            난이도에 따라 CPU의 전략이 달라집니다. <br />
+                            (Easy / Normal / Hard)
+                        </p>
+                        <div class="difficulty-buttons">
+                            <button class="difficulty-button" data-level="easy">
+                                쉬움 (Easy)
+                            </button>
+                            <button
+                                class="difficulty-button"
+                                data-level="normal"
+                            >
+                                보통 (Normal)
+                            </button>
+                            <button class="difficulty-button" data-level="hard">
+                                어려움 (Hard)
+                            </button>
                         </div>
                     </div>
                 </div>
