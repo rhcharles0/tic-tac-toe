@@ -307,7 +307,7 @@ body {
   font-family: 'OkMallang', sans-serif;
   font-size: clamp(60px, 10vw, 100px); /* 화면 크기에 맞게 조절 */
   color: #fdc135;
-  -webkit-text-stroke: 2px #000;
+  /* -webkit-text-stroke: 2px #000;? */
   text-shadow: 4px 4px 0 #000;
   margin-bottom: 30px;
   line-height: 1.1;
@@ -360,9 +360,9 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   color: #000;
-  line-height: 1.4;
+  line-height: 1.5;
   text-align: center;
-  margin-top: -10px; /* 말풍선 꼬리 위치 고려 */
+  margin-top: -30px; /* 말풍선 위치 text-block */
 }
 
 /* 6. 무승부 레이아웃 */
@@ -426,7 +426,7 @@ body {
     transform: scale(1);
   }
   40% {
-    transform: scale(1.25);
+    transform: scale(1.15);
   }
   70% {
     transform: scale(0.95);
