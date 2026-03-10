@@ -75,9 +75,9 @@ closeBtn.addEventListener('mouseleave', () => {
 
 window.addEventListener('load', () => {
     localStorage.removeItem('board');
-    cols.forEach((c) => {
-        c.style.opacity = 0;
-        c.style.transform = 'scale(0)';
+    gsap.set('.col', {
+        opacity: 0,
+        scale: 0,
     });
 });
 startBtn.addEventListener('click', (e) => {
