@@ -505,7 +505,6 @@ body {
 #result-header {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
   margin-bottom: 30px;
 }
 
@@ -517,7 +516,7 @@ body {
 #result-options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 20px;
 }
 

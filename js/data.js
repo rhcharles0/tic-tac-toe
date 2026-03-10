@@ -203,8 +203,9 @@ export function openQuizModal(index, callback) {
 
       const correctAnswer = document.createElement('p');
       correctAnswer.textContent = `정답: ${currentQuiz.answer}`;
-      correctAnswer.style.color = '#4CAF50';
+      correctAnswer.style.color = 'green';
       correctAnswer.style.fontWeight = 'bold';
+      correctAnswer.style.webkitTextStroke = '0.3px #000000';
       optionsContainer.appendChild(correctAnswer);
     }
 
