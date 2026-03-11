@@ -77,13 +77,14 @@ export function openQuizModal(index, callback) {
     input.id = 'quiz-answer-input';
     input.className = 'quiz-answer-input';
     input.placeholder = '정답 입력';
-    input.autocomplete = 'off'; // 자동완성 끄기
+    input.autocomplete = 'off';
 
     const submitBtn = document.createElement('button');
     submitBtn.className = 'quiz-option-btn';
     submitBtn.textContent = '확인';
 
-    submitBtn.onclick = () => {
+    // --- 1. 정답 제출 로직을 기명 함수로 분리 ---
+    function handleSubmit() {
       const isCorrect = checkShortAnswer(input.value, quiz);
       closeModal();
       showResultModal(
@@ -94,18 +95,25 @@ export function openQuizModal(index, callback) {
         quiz,
         input.value,
       );
-    };
-    // 엔터키 지원
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault(); // 혹시 form submit 방지
-        submitAnswer();
+    }
+
+    // --- 2. 엔터키 핸들러에서 위 함수 호출 ---
+    function handleEnterSubmit(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        handleSubmit();
       }
-    });
+    }
+
+    // --- 3. 이벤트 연결 ---
+    submitBtn.onclick = handleSubmit; // 버튼 클릭 시
+    input.addEventListener('keydown', handleEnterSubmit); // 엔터키 입력 시
 
     container.appendChild(input);
     container.appendChild(submitBtn);
-    input.focus();
+
+    // 입력창에 바로 포커스
+    setTimeout(() => input.focus(), 10);
   }
 
   // 4. 정답 확인 및 결과 전달
